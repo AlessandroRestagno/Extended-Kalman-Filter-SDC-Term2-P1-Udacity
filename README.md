@@ -25,3 +25,7 @@ These are the suggested steps:
 * cd build
 * cmake ..
 * make: This will create the executable ExtendedKF .
+
+## Running the filter
+From the build directory, execute './ExtendedKF'. The output should be:
+
