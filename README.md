@@ -17,12 +17,11 @@ For instructions on how to install these components on different operating syste
 
 In order to install the necessary libraries, use the [install-ubuntu.sh](install-ubuntu.sh).
 
-Compiling and executing the project
+## Compiling and executing the project
 These are the suggested steps:
 
-Clone the repo and cd to it on a Terminal.
-Create the build directory: mkdir build
-cd build
-cmake ..
-make: This will create two executables
-ExtendedKF : EKF implementation.
+* Clone the repo and cd to it on a Terminal.
+* Create the build directory: mkdir build
+* cd build
+* cmake ..
+* make: This will create the executable ExtendedKF .
