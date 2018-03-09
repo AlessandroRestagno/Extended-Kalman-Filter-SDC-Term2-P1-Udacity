@@ -6,7 +6,7 @@ In this project I utilized a kalman filter to estimate the state of a moving obj
 
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
 
-##Prerequisites
+## Prerequisites
 The project has the following dependencies (from Udacity's seed project):
 
 cmake >= 3.5
