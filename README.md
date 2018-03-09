@@ -27,5 +27,9 @@ These are the suggested steps:
 * make: This will create the executable ExtendedKF .
 
 ## Running the filter
-From the build directory, execute './ExtendedKF'. The output should be:
+From the build directory, execute `./ExtendedKF`. The output should be:
+```
+Listening to port 4567
+Connected!!!
+```
 
