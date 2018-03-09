@@ -13,7 +13,7 @@ The project has the following dependencies (from Udacity's seed project):
 * make >= 4.1
 * gcc/g++ >= 5.4
 * Udacity's simulator.
-For instructions on how to install these components on different operating systems, please, visit (Udacity's seed project) [https://github.com/udacity/CarND-Extended-Kalman-Filter-Project]. As this particular implementation was done on Windows 10 using Bash, the rest of this documentation will be focused on Bash.
+For instructions on how to install these components on different operating systems, please, visit [Udacity's seed project](https://github.com/udacity/CarND-Extended-Kalman-Filter-Project) . As this particular implementation was done on Windows 10 using Bash, the rest of this documentation will be focused on Bash.
 
 In order to install the necessary libraries, use the install-ubuntu.sh.
 
