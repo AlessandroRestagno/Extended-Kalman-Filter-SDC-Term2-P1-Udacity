@@ -1,0 +1,97 @@
+#include "kalman_filter.h"
+#define PI 3.14159265
+
+Tools tools;
+
+//using namespace std;
+using Eigen::MatrixXd;
+using Eigen::VectorXd;
+
+// Please note that the Eigen library does not initialize 
+// VectorXd or MatrixXd objects with zeros upon creation.
+
+KalmanFilter::KalmanFilter() {}
+
+KalmanFilter::~KalmanFilter() {}
+
+void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
+                        MatrixXd &H_in, MatrixXd &Hj_in, MatrixXd &R_in, MatrixXd &R_ekf_in, MatrixXd &Q_in) {
+  x_ = x_in;
+  P_ = P_in;
+  F_ = F_in;
+  H_ = H_in;
+  Hj_ = Hj_in;
+  R_ = R_in;
+  R_ekf_ = R_ekf_in;
+  Q_ = Q_in;
+  I_ = Eigen::MatrixXd::Identity(4, 4);
+  //I_ = Eigen::MatrixXd::Identity(4, 4);
+}
+
+void KalmanFilter::Predict() {
+	x_ = F_ * x_;
+	MatrixXd Ft = F_.transpose();
+	P_ = F_ * P_*Ft + Q_;
+	/**
+  TODO:
+    * predict the state
+  */
+}
+
+void KalmanFilter::Update(const VectorXd &z) {
+  /**
+  TODO:
+    * update the state using Kalman Filter equations, when sensor type LASER
+  */
+
+	VectorXd y = z - H_ * x_;
+	MatrixXd Ht = H_.transpose();
+	MatrixXd S = H_ * P_*Ht + R_;
+	MatrixXd Si = S.inverse();
+	MatrixXd K = P_ * Ht*Si;
+
+	// New state
+	x_ = x_ + (K*y);
+	P_ = (I_ - K * H_)*P_;
+}
+
+
+void KalmanFilter::UpdateEKF(const VectorXd &z) {
+  /**
+  TODO:
+    * update the state by using Extended Kalman Filter equations, when sensor type RADAR
+  */
+
+	double px = x_[0];
+	double py = x_[1];
+	double vx = x_[2];
+	double vy = x_[3];
+	
+
+	// If rho == 0, skip the update step to avoid dividing by zero.
+	// This is crude but should be fairly robust on our data set.
+	if (px == 0. && py == 0.)
+		return;
+
+	Hj_ = tools.CalculateJacobian(x_);
+	VectorXd hofx(3);
+	double rho = sqrt(px*px + py * py);
+	hofx << rho, atan2(py, px), (px*vx + py * vy) / rho;
+
+	// Update the state using Extended Kalman Filter equations
+	VectorXd y = z - hofx;
+	if (y[1] > PI)
+		y[1] -= 2.f*PI;
+	if (y[1] < -PI)
+		y[1] += 2.f*PI;
+
+	MatrixXd Hjt = Hj_.transpose();
+	MatrixXd S = Hj_ * P_*Hjt + R_ekf_;
+	MatrixXd Si = S.inverse();
+	MatrixXd K = P_ * Hjt*Si;
+
+	// Compute new state
+	x_ = x_ + (K*y);
+	P_ = (I_ - K * Hj_)*P_;
+
+}
