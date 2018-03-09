@@ -32,4 +32,8 @@ From the build directory, execute `./ExtendedKF`. The output should be:
 Listening to port 4567
 Connected!!!
 ```
+The simulator has two different datasets
 
+This is the output of the first dataset
+
+and this is the output of the second dataset
