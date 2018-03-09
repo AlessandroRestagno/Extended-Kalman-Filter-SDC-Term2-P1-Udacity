@@ -34,6 +34,8 @@ Connected!!!
 ```
 The simulator has two different datasets
 
-This is the output of the first dataset
+### This is the output of the first dataset
 ![Dataset 1](/images/dataset1.PNG)
-and this is the output of the second dataset
+
+### this is the output of the second dataset
+![Dataset 2](/images/dataset2.PNG)
